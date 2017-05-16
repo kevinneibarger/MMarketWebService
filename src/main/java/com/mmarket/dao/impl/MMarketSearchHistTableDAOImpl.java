@@ -5,6 +5,10 @@ package com.mmarket.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.mmarket.dao.MMarketSearchHistTableDAO;
 import com.mmarket.model.MMarketSearchHistTable;
 
@@ -12,8 +16,13 @@ import com.mmarket.model.MMarketSearchHistTable;
  * @author kevin
  *
  */
+
+@Repository
 public class MMarketSearchHistTableDAOImpl implements MMarketSearchHistTableDAO {
 
+	@Autowired
+	public SessionFactory sessionFactory;
+	
 	/* (non-Javadoc)
 	 * @see com.mmarket.dao.MMarketSearchHistTableDAO#getSearchHistById(long)
 	 */

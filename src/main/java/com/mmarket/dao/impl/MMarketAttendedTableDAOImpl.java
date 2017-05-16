@@ -6,6 +6,10 @@ package com.mmarket.dao.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.mmarket.dao.MMarketAttendedTableDAO;
 import com.mmarket.model.MMarketAttendedTable;
 
@@ -13,8 +17,12 @@ import com.mmarket.model.MMarketAttendedTable;
  * @author kevin
  *
  */
+@Repository
 public class MMarketAttendedTableDAOImpl implements MMarketAttendedTableDAO {
 
+	@Autowired
+	public SessionFactory sessionFactory;
+	
 	/* (non-Javadoc)
 	 * @see com.mmarket.dao.MMarketAttendedTableDAO#getAllAttendees()
 	 */

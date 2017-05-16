@@ -5,6 +5,10 @@ package com.mmarket.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.mmarket.dao.MMarketManTableDAO;
 import com.mmarket.model.MMarketManTable;
 
@@ -12,8 +16,12 @@ import com.mmarket.model.MMarketManTable;
  * @author kevin
  *
  */
+@Repository
 public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 
+	@Autowired
+	public SessionFactory sessionFactory;
+	
 	/* (non-Javadoc)
 	 * @see com.mmarket.dao.MMarketManTableDAO#getAllData()
 	 */
