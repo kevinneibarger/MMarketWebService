@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
-import com.mmarket.service.MMPatronLoginHistService;
-import com.mmarket.service.MMarketManViewTableService;
+import com.mmarket.service.MMarketService;
 
 /**
  * @author kevin
@@ -32,72 +31,69 @@ public class MMarketController {
 	 * Web Services for the Man Market - Man Viewed Table
 	 */
 	@Autowired
-	MMarketManViewTableService mmViewedService;
+	MMarketService mmarketService;
 	
 	@RequestMapping(value = "/getAllPeopleViewed", method = RequestMethod.GET, headers = "Accept=application/json") 
 	public List<MMarketManViewTable> getAllPeopleViewed() {
-		return mmViewedService.getAllMenViewed();
+		return mmarketService.getAllMenViewed();
 	}
 	
 	@RequestMapping(value = "/getManViewedById/{viewId}", method = RequestMethod.GET, headers = "Accept=application/json") 
 	public MMarketManViewTable getManViewedById(@PathVariable long viewId) {
-		return mmViewedService.getManViewedById(viewId);
+		return mmarketService.getManViewedById(viewId);
 	}
 	
 	@RequestMapping(value = "/getManViewedByEventId/{eventId}", method = RequestMethod.GET, headers = "Accept=application/json") 
 	public List<MMarketManViewTable> getManViewedByEventId(@PathVariable long eventId) {
-		return mmViewedService.getManViewedByEventId(eventId);
+		return mmarketService.getManViewedByEventId(eventId);
 	}
 	
 	@RequestMapping(value = "/getManViewedByViewDate/{viewDate}", method = RequestMethod.GET, headers = "Accept=application/json") 
 	public List<MMarketManViewTable> getManViewedByViewDate(@PathVariable Timestamp viewDate) {
-		return mmViewedService.getManViewedByViewDate(viewDate);
+		return mmarketService.getManViewedByViewDate(viewDate);
 	}
 	
 	@RequestMapping(value = "/getAllViewedByPatron/{patronId}", method = RequestMethod.GET, headers = "Accept=application/json") 
 	public List<MMarketManViewTable> getAllPeopleViewed(@PathVariable long patronId) {
-		return mmViewedService.getManViewedByPatronId(patronId);
+		return mmarketService.getManViewedByPatronId(patronId);
 	}
 	
 	/**
 	 * Web Services for the Patron Login History Table
 	 */
 	
-	@Autowired
-	MMPatronLoginHistService patronLoginHistService;
-	
 	@RequestMapping(value = "/getAllPatronLoginHist", method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<MMarketPatronLoginHistTable> getAllPatronLoginHist() {
 		
-		List<MMarketPatronLoginHistTable> allPatrons = patronLoginHistService.getAllPatronLoginHist();
+		List<MMarketPatronLoginHistTable> allPatrons = mmarketService.getAllPatronLoginHist();
 		return allPatrons;
 	}
 	
 	@RequestMapping(value = "/getPatronLoginHistByPatronId/{patronId}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(@PathVariable long patronId) {
 		
-		MMarketPatronLoginHistTable patron = patronLoginHistService.getPatronLoginHistByPatronId(patronId);
+		MMarketPatronLoginHistTable patron = mmarketService.getPatronLoginHistByPatronId(patronId);
 		return patron;
 	}
 	
 	@RequestMapping(value = "/getPatronLoginHistByHistId/{histId}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(@PathVariable long histId) {
 		
-		MMarketPatronLoginHistTable patron = patronLoginHistService.getPatronLoginHistByHistId(histId);
+		MMarketPatronLoginHistTable patron = mmarketService.getPatronLoginHistByHistId(histId);
 		return patron;
 	}
 	
 	@RequestMapping(value = "/getPatronLoginHistByDateRange/{startDate}/{endDate}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate) {
 		
-		List<MMarketPatronLoginHistTable> allPatrons = patronLoginHistService.getPatronLoginHistByDateRange(startDate, endDate);
+		List<MMarketPatronLoginHistTable> allPatrons = mmarketService.getPatronLoginHistByDateRange(startDate, endDate);
 		return allPatrons;
 	}
 	
 	@RequestMapping(value = "/updatePatronById/{patronId}/{lastLoginDate}", method = RequestMethod.POST, headers = "Accept=html/text")
 	public String updatePatronById(@PathVariable long patronId, @PathVariable Date lastLoginDate) {
 		
-		int success = patronLoginHistService.updatePatronById(patronId, lastLoginDate);
+		int success = mmarketService.updatePatronById(patronId, lastLoginDate);
 
 		if (success == 1) {
 			return "Patron with ID: "+patronId+" Was Successfully Updated!";
@@ -109,7 +105,7 @@ public class MMarketController {
 	@RequestMapping(value = "/addPatronLoginHistRec/{patronId}/{lastLoginDate}", method = RequestMethod.PUT, headers = "Accept=html/text")
 	public String addNewPatronLoginHistRec(@PathVariable long patronId, @PathVariable Date lastLoginDate) {
 		
-		int success = patronLoginHistService.addPatronLoginHist(patronId, lastLoginDate);
+		int success = mmarketService.addPatronLoginHist(patronId, lastLoginDate);
 
 		if (success == 1) {
 			return "Patron with ID: "+patronId+" Was Successfully ADDED!";

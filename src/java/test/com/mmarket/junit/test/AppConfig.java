@@ -3,20 +3,8 @@
  */
 package com.mmarket.junit.test;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.SessionFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate4.HibernateTemplate;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.mmarket.dao.impl.MMarketManViewTableDAOImpl;
-import com.mmarket.model.MMarketEventTable;
-import com.mmarket.model.MMarketManTable;
-import com.mmarket.model.MMarketManViewTable;
-import com.mmarket.model.MMarketPatronTable;
-import com.mmarket.service.MMarketManViewTableService;
 
 /**
  * @author kevin

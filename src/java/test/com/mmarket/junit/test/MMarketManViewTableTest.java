@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mmarket.dao.MMarketManViewTableDAO;
 import com.mmarket.model.MMarketManViewTable;
-import com.mmarket.service.MMarketManViewTableService;
 
 /**
  * @author kevin
