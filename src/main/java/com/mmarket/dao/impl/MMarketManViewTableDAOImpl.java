@@ -21,7 +21,7 @@ import com.mmarket.model.MMarketManViewTable;
  */
 @Repository
 public class MMarketManViewTableDAOImpl implements MMarketManViewTableDAO {
-
+ 
 	@Autowired
 	public SessionFactory sessionFactory;
 	

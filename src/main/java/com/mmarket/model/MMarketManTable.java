@@ -5,11 +5,12 @@ package com.mmarket.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,11 +20,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="TBL_MAN")
-public class MMarketManTable {
+public class MMarketManTable implements Serializable { 
 
-	@OneToMany
+	private static final long serialVersionUID = 1L;
+
 	private long manId;
-	
 	private long eventId;
 	private long eventNum;
 	private String firstName;

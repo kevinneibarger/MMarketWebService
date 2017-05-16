@@ -6,7 +6,7 @@ package com.mmarket.dao;
 import java.sql.Date;
 import java.util.List;
 
-import com.mmarket.model.MMPatronLoginHistory;
+import com.mmarket.model.MMarketPatronLoginHistTable;
 
 /**
  * @author kevin
@@ -14,11 +14,11 @@ import com.mmarket.model.MMPatronLoginHistory;
  */
 public interface MMPatronLoginHistDAO {
 
-	public List<MMPatronLoginHistory> getAllPatronsLoginHist();
-	public MMPatronLoginHistory getPatronLoginHistByPatronId(long patronId);
-	public MMPatronLoginHistory getPatronLoginHistByHistId(long histId);
-	public List<MMPatronLoginHistory> getPatronLoginHistByDateRange(Date startDate, Date endDate);
+	public List<MMarketPatronLoginHistTable> getAllPatronsLoginHist();
+	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(long patronId);
+	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(long histId);
+	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(Date startDate, Date endDate);
 	public int updatePatronById(long patronId, Date lastLoginDate);
 	public int addPatronLoginHist(long patronId, Date lastLoginDate);
-	public int deleteLoginHistByPatronId(long patronId);
+	public int deleteLoginHistByPatronId(long patronId); 
 }

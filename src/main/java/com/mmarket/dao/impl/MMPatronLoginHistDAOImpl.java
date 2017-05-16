@@ -13,27 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.mmarket.dao.CustomHibernateDaoSupport;
 import com.mmarket.dao.MMPatronLoginHistDAO;
-import com.mmarket.model.MMPatronLoginHistory;
+import com.mmarket.model.MMarketPatronLoginHistTable;
 
 /**
  * @author kevin
  *
  */
 @Repository
-public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implements MMPatronLoginHistDAO {
+public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	
-	@Autowired
+	@Autowired 
 	private SessionFactory sessionFactory;
 	
 	/* (non-Javadoc)
 	 * @see com.mmarket.dao.MMPatronLoginHistDAO#getAllPatronsLoginHist()
 	 */
 	@Override
-	public List<MMPatronLoginHistory> getAllPatronsLoginHist() {
+	public List<MMarketPatronLoginHistTable> getAllPatronsLoginHist() {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
-		List<MMPatronLoginHistory> patrons = template.loadAll(MMPatronLoginHistory.class);
+		List<MMarketPatronLoginHistTable> patrons = template.loadAll(MMarketPatronLoginHistTable.class);
 		return patrons;
 	}
 
@@ -42,13 +41,13 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public MMPatronLoginHistory getPatronLoginHistByPatronId(long patronId) {
+	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(long patronId) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
-		List patrons = template.find("from MMPatronLoginHistory where patronId=?", patronId);
-		MMPatronLoginHistory patron = new MMPatronLoginHistory();
+		List patrons = template.find("from MMarketPatronLoginHistTable where patronId=?", patronId);
+		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
 		
 		if (patrons != null && patrons.size() > 0) {
-			patron = (MMPatronLoginHistory)patrons.get(0);
+			patron = (MMarketPatronLoginHistTable)patrons.get(0);
 		}
 		
 		return patron;
@@ -59,14 +58,14 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public MMPatronLoginHistory getPatronLoginHistByHistId(long histId) {
+	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(long histId) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		
-		List patrons = template.find("from MMPatronLoginHistory where histId = ?", histId);
-		MMPatronLoginHistory patron = new MMPatronLoginHistory();
+		List patrons = template.find("from MMarketPatronLoginHistTable where histId = ?", histId);
+		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
 		
 		if (patrons != null && patrons.size() > 0) {
-			patron = (MMPatronLoginHistory)patrons.get(0);
+			patron = (MMarketPatronLoginHistTable)patrons.get(0);
 		}
 		
 		return patron;
@@ -76,13 +75,13 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 	 * @see com.mmarket.dao.MMPatronLoginHistDAO#getPatronLoginHistByDateRange(java.sql.Date, java.sql.Date)
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<MMPatronLoginHistory> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(MMPatronLoginHistory.class);
+	@Override 
+	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketPatronLoginHistTable.class);
 		criteria.add(Restrictions.between("lastLoginDate", startDate, endDate));
 		
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
-		List<MMPatronLoginHistory> patrons = (List<MMPatronLoginHistory>)template.findByCriteria(criteria);
+		List<MMarketPatronLoginHistTable> patrons = (List<MMarketPatronLoginHistTable>)template.findByCriteria(criteria);
 		return patrons;
 	}
 
@@ -90,7 +89,7 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 	public int updatePatronById(long patronId, Date lastLoginDate) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		
-		MMPatronLoginHistory patron = getPatronLoginHistByPatronId(patronId);
+		MMarketPatronLoginHistTable patron = getPatronLoginHistByPatronId(patronId);
 		
 		if (patron != null) {
 			patron.setLastLoginDate(lastLoginDate);
@@ -103,7 +102,7 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 
 	@Override
 	public int addPatronLoginHist(long patronId, Date lastLoginDate) {
-		MMPatronLoginHistory patron = new MMPatronLoginHistory();
+		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
 		patron.setPatronId(patronId);
 		patron.setLastLoginDate(lastLoginDate);
 		
@@ -111,7 +110,7 @@ public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implemen
 		template.saveOrUpdate(patron);
 		
 		// Check and make sure it was added!
-		MMPatronLoginHistory newPatron =  getPatronLoginHistByPatronId(patronId);
+		MMarketPatronLoginHistTable newPatron =  getPatronLoginHistByPatronId(patronId);
 		
 		if (newPatron != null) {
 			return 1;

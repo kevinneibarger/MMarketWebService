@@ -18,6 +18,6 @@ public interface MMarketManViewTableDAO {
 	public MMarketManViewTable getManViewedById(long viewId);
 	public List<MMarketManViewTable> getManViewedByEventId(long eventId);
 	public List<MMarketManViewTable> getManViewedByViewDate(Timestamp viewDate);
-	public List<MMarketManViewTable> getManViewedByPatronId(long patronId);
+	public List<MMarketManViewTable> getManViewedByPatronId(long patronId); 
 
 }

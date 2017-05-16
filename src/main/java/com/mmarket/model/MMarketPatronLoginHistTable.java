@@ -5,6 +5,7 @@ package com.mmarket.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="TBL_PATRON_LOGIN_HIST")
-public class MMarketPatronLoginHistTable {
+public class MMarketPatronLoginHistTable implements Serializable { 
 
+	private static final long serialVersionUID = 1L;
 
 	private long histId;
 	private long patronId;

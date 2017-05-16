@@ -9,58 +9,41 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * @author kevin
  *
  */
-
-@Entity
-@Table(name="TBL_MAN_VIEW")
-public class MMarketManViewTable implements Serializable { 
+public class MMarketAttendedTable implements Serializable { 
 
 	private static final long serialVersionUID = 1L;
-
-	private long viewId;
-	private long manId; // foreign key
+	
+	private long attendId;
 	private long eventId; // foreign key
 	private Timestamp viewDate;
 	private long patronId; // foreign key
 	
-	private MMarketManTable manRec;
-	private MMarketEventTable eventRec;
-	private MMarketPatronTable patronRec;
+	private MMarketPatronTable patron;
+	private MMarketEventTable event;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "VIEW_ID", unique = true, nullable = false)
-	public long getViewId() {
-		return viewId;
+	@Column(name = "ATTEND_ID", unique = true, nullable = false)
+	public long getAttendId() {
+		return attendId;
 	}
-	public void setViewId(long viewId) {
-		this.viewId = viewId;
-	}
-	
-	@Column(name = "MAN_ID", unique = true, nullable = false)
-	public long getManId() {
-		return manId;
-	}
-	
-	public void setManId(long manId) {
-		this.manId = manId;
+	public void setAttendId(long attendId) {
+		this.attendId = attendId;
 	}
 	
 	@Column(name = "EVENT_ID", unique = true, nullable = false)
 	public long getEventId() {
 		return eventId;
 	}
-	
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
@@ -82,32 +65,23 @@ public class MMarketManViewTable implements Serializable {
 	}
 	
 	@OneToOne(cascade = javax.persistence.CascadeType.ALL)
-	@JoinColumn(name = "MAN_ID", referencedColumnName = "MAN_ID", insertable = false, updatable = false)
-	public MMarketManTable getManRec() {
-		return manRec;
+	@JoinColumn(name = "PATRON_ID", referencedColumnName = "PATRON_ID", insertable = false, updatable = false)
+	public MMarketPatronTable getPatron() {
+		return patron;
 	}
-	public void setManRec(MMarketManTable man) {
-		this.manRec = man;
+	public void setPatron(MMarketPatronTable patron) {
+		this.patron = patron;
 	}
 	
 	@OneToOne(cascade = javax.persistence.CascadeType.ALL)
 	@JoinColumn(name = "EVENT_ID", referencedColumnName = "EVENT_ID", insertable = false, updatable = false)
-	public MMarketEventTable getEventRec() {
-		return eventRec;
+	public MMarketEventTable getEvent() {
+		return event;
 	}
-	
-	public void setEventRec(MMarketEventTable event) {
-		this.eventRec = event;
-	}
-	
-	@OneToOne(cascade = javax.persistence.CascadeType.ALL)
-	@JoinColumn(name = "PATRON_ID", referencedColumnName = "PATRON_ID", insertable = false, updatable = false)
-	public MMarketPatronTable getPatronRec() {
-		return patronRec;
-	}
-	public void setPatronRec(MMarketPatronTable patron) {
-		this.patronRec = patron;
+	public void setEvent(MMarketEventTable event) {
+		this.event = event;
 	}
 	
 	
+
 }

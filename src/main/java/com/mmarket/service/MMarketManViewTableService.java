@@ -19,7 +19,7 @@ import com.mmarket.model.MMarketManViewTable;
  */
 
 @Service("mmManViewedTableService")
-public class MMarketManViewTableService {
+public class MMarketManViewTableService { 
 	
 	@Autowired
 	MMarketManViewTableDAOImpl mmManViewTable;
