@@ -14,7 +14,7 @@ import com.mmarket.model.MMarketManViewTable;
  */
 public interface MMarketManViewTableDAO {
 	
-	public List<MMarketManViewTable> getAllViews();
+	public List<MMarketManViewTable> getAllViews();  
 	public MMarketManViewTable getManViewedById(long viewId);
 	public List<MMarketManViewTable> getManViewedByEventId(long eventId);
 	public List<MMarketManViewTable> getManViewedByViewDate(Timestamp viewDate);

@@ -13,7 +13,7 @@ import com.mmarket.model.MMarketManTable;
  */
 public interface MMarketManTableDAO {
 
-	public List<MMarketManTable> getAllData();
+	public List<MMarketManTable> getAllData(); 
 	public MMarketManTable getManById(long manId);
 	public List<MMarketManTable> getMenByEventId(long eventId);
 	public List<MMarketManTable> getMenByOccupation(String occupation);

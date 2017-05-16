@@ -14,7 +14,7 @@ import com.mmarket.model.MMarketPatronLoginHistTable;
  */
 public interface MMPatronLoginHistDAO {
 
-	public List<MMarketPatronLoginHistTable> getAllPatronsLoginHist();
+	public List<MMarketPatronLoginHistTable> getAllPatronsLoginHist(); 
 	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(long patronId);
 	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(long histId);
 	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(Date startDate, Date endDate);

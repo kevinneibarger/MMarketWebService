@@ -15,7 +15,7 @@ import com.mmarket.model.MMarketPatronTable;
  */
 public interface MMarketPatronTableDAO extends Serializable {
 
-	public List<MMarketPatronTable> getAllPatrons();
+	public List<MMarketPatronTable> getAllPatrons(); 
 	public MMarketPatronTable getPatronById(long id);
 	public MMarketPatronTable getPatronByName(String firstName, String lastName);
 	public MMarketPatronTable getPatronByBirthYear(String birthYear);

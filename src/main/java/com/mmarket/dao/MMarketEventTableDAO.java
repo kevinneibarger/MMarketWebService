@@ -13,7 +13,7 @@ import com.mmarket.model.MMarketEventTable;
  */
 public interface MMarketEventTableDAO {
 
-	public List<MMarketEventTable> getAllEvents();
+	public List<MMarketEventTable> getAllEvents(); 
 	public List<MMarketEventTable> getAllEventsByName(String eventName);
 	public List<MMarketEventTable> getAllEventsByVenue(String venueName);
 	public MMarketEventTable getEventById(long eventId);
