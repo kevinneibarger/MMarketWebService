@@ -13,15 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.mmarket.dao.CustomHibernateDaoSupport;
 import com.mmarket.dao.MMPatronLoginHistDAO;
-import com.mmarket.model.MMarketPatronLoginHistTable;
+import com.mmarket.model.MMPatronLoginHistory;
 
 /**
  * @author kevin
  *
  */
 @Repository
-public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
+public class MMPatronLoginHistDAOImpl extends CustomHibernateDaoSupport implements MMPatronLoginHistDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -30,9 +31,9 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	 * @see com.mmarket.dao.MMPatronLoginHistDAO#getAllPatronsLoginHist()
 	 */
 	@Override
-	public List<MMarketPatronLoginHistTable> getAllPatronsLoginHist() {
+	public List<MMPatronLoginHistory> getAllPatronsLoginHist() {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
-		List<MMarketPatronLoginHistTable> patrons = template.loadAll(MMarketPatronLoginHistTable.class);
+		List<MMPatronLoginHistory> patrons = template.loadAll(MMPatronLoginHistory.class);
 		return patrons;
 	}
 
@@ -41,13 +42,13 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(long patronId) {
+	public MMPatronLoginHistory getPatronLoginHistByPatronId(long patronId) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		List patrons = template.find("from MMPatronLoginHistory where patronId=?", patronId);
-		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
+		MMPatronLoginHistory patron = new MMPatronLoginHistory();
 		
 		if (patrons != null && patrons.size() > 0) {
-			patron = (MMarketPatronLoginHistTable)patrons.get(0);
+			patron = (MMPatronLoginHistory)patrons.get(0);
 		}
 		
 		return patron;
@@ -58,14 +59,14 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(long histId) {
+	public MMPatronLoginHistory getPatronLoginHistByHistId(long histId) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		
 		List patrons = template.find("from MMPatronLoginHistory where histId = ?", histId);
-		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
+		MMPatronLoginHistory patron = new MMPatronLoginHistory();
 		
 		if (patrons != null && patrons.size() > 0) {
-			patron = (MMarketPatronLoginHistTable)patrons.get(0);
+			patron = (MMPatronLoginHistory)patrons.get(0);
 		}
 		
 		return patron;
@@ -76,12 +77,12 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketPatronLoginHistTable.class);
+	public List<MMPatronLoginHistory> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMPatronLoginHistory.class);
 		criteria.add(Restrictions.between("lastLoginDate", startDate, endDate));
 		
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
-		List<MMarketPatronLoginHistTable> patrons = (List<MMarketPatronLoginHistTable>)template.findByCriteria(criteria);
+		List<MMPatronLoginHistory> patrons = (List<MMPatronLoginHistory>)template.findByCriteria(criteria);
 		return patrons;
 	}
 
@@ -89,7 +90,7 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 	public int updatePatronById(long patronId, Date lastLoginDate) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		
-		MMarketPatronLoginHistTable patron = getPatronLoginHistByPatronId(patronId);
+		MMPatronLoginHistory patron = getPatronLoginHistByPatronId(patronId);
 		
 		if (patron != null) {
 			patron.setLastLoginDate(lastLoginDate);
@@ -102,7 +103,7 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 
 	@Override
 	public int addPatronLoginHist(long patronId, Date lastLoginDate) {
-		MMarketPatronLoginHistTable patron = new MMarketPatronLoginHistTable();
+		MMPatronLoginHistory patron = new MMPatronLoginHistory();
 		patron.setPatronId(patronId);
 		patron.setLastLoginDate(lastLoginDate);
 		
@@ -110,7 +111,7 @@ public class MMPatronLoginHistDAOImpl implements MMPatronLoginHistDAO {
 		template.saveOrUpdate(patron);
 		
 		// Check and make sure it was added!
-		MMarketPatronLoginHistTable newPatron =  getPatronLoginHistByPatronId(patronId);
+		MMPatronLoginHistory newPatron =  getPatronLoginHistByPatronId(patronId);
 		
 		if (newPatron != null) {
 			return 1;

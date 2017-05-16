@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmarket.dao.impl.MMPatronLoginHistDAOImpl;
-import com.mmarket.model.MMarketPatronLoginHistTable;
+import com.mmarket.model.MMPatronLoginHistory;
 
 /**
  * @author kevin
@@ -24,22 +24,22 @@ public class MMPatronLoginHistService {
 	MMPatronLoginHistDAOImpl patronLoginHistDAO;
 	
 	@Transactional
-	public List<MMarketPatronLoginHistTable> getAllPatronLoginHist() {
+	public List<MMPatronLoginHistory> getAllPatronLoginHist() {
 		return patronLoginHistDAO.getAllPatronsLoginHist();
 	}
 	
 	@Transactional
-	public MMarketPatronLoginHistTable getPatronLoginHistByPatronId(long patronId) {
+	public MMPatronLoginHistory getPatronLoginHistByPatronId(long patronId) {
 		return patronLoginHistDAO.getPatronLoginHistByPatronId(patronId);
 	}
 	
 	@Transactional
-	public MMarketPatronLoginHistTable getPatronLoginHistByHistId(long histId) {
+	public MMPatronLoginHistory getPatronLoginHistByHistId(long histId) {
 		return patronLoginHistDAO.getPatronLoginHistByHistId(histId);
 	}
 	
 	@Transactional
-	public List<MMarketPatronLoginHistTable> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
+	public List<MMPatronLoginHistory> getPatronLoginHistByDateRange(Date startDate, Date endDate) {
 		return patronLoginHistDAO.getPatronLoginHistByDateRange(startDate, endDate);
 	}
 	
