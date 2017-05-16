@@ -6,7 +6,7 @@ package com.mmarket.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class MMarketManViewTable implements Serializable {
 	private long viewId;
 	private long manId; // foreign key
 	private long eventId; // foreign key
-	private Timestamp viewDate;
+	private Date viewDate;
 	private long patronId; // foreign key
 	
 	private MMarketManTable manRec;
@@ -66,10 +66,10 @@ public class MMarketManViewTable implements Serializable {
 	}
 	
 	@Column(name = "VIEW_DATE", unique = true, nullable = false)
-	public Timestamp getViewDate() {
+	public Date getViewDate() {
 		return viewDate;
 	}
-	public void setViewDate(Timestamp viewDate) {
+	public void setViewDate(Date viewDate) {
 		this.viewDate = viewDate;
 	}
 	

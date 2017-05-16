@@ -4,7 +4,6 @@
 package com.mmarket.service;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +115,7 @@ public class MMarketService {
 	}
 	
 	@Transactional
-	public List<MMarketManViewTable> getManViewedByViewDate(Timestamp viewDate) {
+	public List<MMarketManViewTable> getManViewedByViewDate(Date viewDate) {
 		return manViewedDAO.getManViewedByViewDate(viewDate);
 	}
 
@@ -138,7 +137,7 @@ public class MMarketService {
 		return attendedDAO.getAttendeesEventById(eventId);
 	}
 
-	public List<MMarketAttendedTable> getAttendeesByViewDate(Timestamp viewDate) {
+	public List<MMarketAttendedTable> getAttendeesByViewDate(Date viewDate) {
 		return attendedDAO.getAttendeesByViewDate(viewDate);
 	}
 
@@ -251,7 +250,7 @@ public class MMarketService {
 		return patronDAO.getPatronByBirthYear(birthYear);
 	}
 
-	public List<MMarketPatronTable> getPatronsByCreateDate(Timestamp createDate) {
+	public List<MMarketPatronTable> getPatronsByCreateDate(Date createDate) {
 		return patronDAO.getPatronsByCreateDate(createDate);
 	}
 

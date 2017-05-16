@@ -3,7 +3,7 @@
  */
 package com.mmarket.dao.impl;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -60,10 +60,10 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mmarket.dao.MMarketPatronTableDAO#getPatronsByCreateDate(java.sql.Timestamp)
+	 * @see com.mmarket.dao.MMarketPatronTableDAO#getPatronsByCreateDate(java.sql.Date)
 	 */
 	@Override
-	public List<MMarketPatronTable> getPatronsByCreateDate(Timestamp createDate) {
+	public List<MMarketPatronTable> getPatronsByCreateDate(Date createDate) {
 		// TODO Auto-generated method stub
 		return null;
 	}

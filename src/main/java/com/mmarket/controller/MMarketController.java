@@ -4,7 +4,6 @@
 package com.mmarket.controller;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmarket.model.MMarketAttendedTable;
 import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
 import com.mmarket.service.MMarketService;
@@ -49,7 +49,7 @@ public class MMarketController {
 	}
 	
 	@RequestMapping(value = "/getManViewedByViewDate/{viewDate}", method = RequestMethod.GET, headers = "Accept=application/json") 
-	public List<MMarketManViewTable> getManViewedByViewDate(@PathVariable Timestamp viewDate) {
+	public List<MMarketManViewTable> getManViewedByViewDate(@PathVariable Date viewDate) {
 		return mmarketService.getManViewedByViewDate(viewDate);
 	}
 	
@@ -112,6 +112,30 @@ public class MMarketController {
 		} else {
 			return "Patron with ID: "+patronId+" Was NOT ADDED, an error hath occurreth!";
 		}
+	}
+	
+	/**
+	 * Web Services for the Attended Table
+	 */
+	
+	@RequestMapping(value = "/getAllAttendees", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketAttendedTable> getAllAttendees() {
+		return mmarketService.getAllAttendees();
+	}
+	
+	@RequestMapping(value = "/getAttendeesEventById/{eventId}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketAttendedTable> getAttendeesEventById(@PathVariable long eventId) {
+		return mmarketService.getAttendeesEventById(eventId);
+	}
+	
+	@RequestMapping(value = "/getAttendeesByViewDate/{viewDate}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketAttendedTable> getAttendeesByViewDate(@PathVariable Date viewDate) {
+		return mmarketService.getAttendeesByViewDate(viewDate);
+	}
+	
+	@RequestMapping(value = "/getAttendedByPatronId/{patronId}", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketAttendedTable getAttendedByPatronId(@PathVariable long patronId) {
+		return mmarketService.getAttendedByPatronId(patronId);
 	}
 
 }

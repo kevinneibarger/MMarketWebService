@@ -8,15 +8,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * @author kevin
  *
  */
+
+@Entity
+@Table(name="TBL_SEARCH_HIST")
 public class MMarketSearchHistTable implements Serializable { 
 
 	private static final long serialVersionUID = 1L;

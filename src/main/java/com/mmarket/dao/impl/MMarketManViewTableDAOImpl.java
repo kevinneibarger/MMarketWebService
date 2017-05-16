@@ -3,7 +3,7 @@
  */
 package com.mmarket.dao.impl;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class MMarketManViewTableDAOImpl implements MMarketManViewTableDAO {
 	}
 
 	@Override
-	public List<MMarketManViewTable> getManViewedByViewDate(Timestamp viewDate) {
+	public List<MMarketManViewTable> getManViewedByViewDate(Date viewDate) {
 		// TODO Auto-generated method stub
 		return null;
 	}

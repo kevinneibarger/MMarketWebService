@@ -6,25 +6,29 @@ package com.mmarket.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * @author kevin
  *
  */
+@Entity
+@Table(name="TBL_ATTENDED")
 public class MMarketAttendedTable implements Serializable { 
 
 	private static final long serialVersionUID = 1L;
 	
 	private long attendId;
 	private long eventId; // foreign key
-	private Timestamp viewDate;
+	private Date viewDate;
 	private long patronId; // foreign key
 	
 	private MMarketPatronTable patron;
@@ -49,10 +53,10 @@ public class MMarketAttendedTable implements Serializable {
 	}
 	
 	@Column(name = "VIEW_DATE", unique = true, nullable = false)
-	public Timestamp getViewDate() {
+	public Date getViewDate() {
 		return viewDate;
 	}
-	public void setViewDate(Timestamp viewDate) {
+	public void setViewDate(Date viewDate) {
 		this.viewDate = viewDate;
 	}
 	

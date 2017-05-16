@@ -6,7 +6,7 @@ package com.mmarket.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,9 +32,9 @@ public class MMarketEventTable implements Serializable {
 	private String venueCity;
 	private String venueState;
 	private String venueZipCode;
-	private Timestamp eventStartMen;
-	private Timestamp eventStartPatron;
-	private Timestamp eventDate;
+	private Date eventStartMen;
+	private Date eventStartPatron;
+	private Date eventDate;
 	private String eventStatus;
 	private double patronCost;
 	private double manCost;
@@ -104,26 +104,26 @@ public class MMarketEventTable implements Serializable {
 	}
 	
 	@Column(name = "EVENT_START_MEN", unique = true, nullable = false)
-	public Timestamp getEventStartMen() {
+	public Date getEventStartMen() {
 		return eventStartMen;
 	}
-	public void setEventStartMen(Timestamp eventStartMen) {
+	public void setEventStartMen(Date eventStartMen) {
 		this.eventStartMen = eventStartMen;
 	}
 	
 	@Column(name = "EVENT_START_PATRON", unique = true, nullable = false)
-	public Timestamp getEventStartPatron() {
+	public Date getEventStartPatron() {
 		return eventStartPatron;
 	}
-	public void setEventStartPatron(Timestamp eventStartPatron) {
+	public void setEventStartPatron(Date eventStartPatron) {
 		this.eventStartPatron = eventStartPatron;
 	}
 	
 	@Column(name = "EVENT_DATE", unique = true, nullable = false)
-	public Timestamp getEventDate() {
+	public Date getEventDate() {
 		return eventDate;
 	}
-	public void setEventDate(Timestamp eventDate) {
+	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
 	}
 	

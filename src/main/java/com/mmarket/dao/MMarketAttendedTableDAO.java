@@ -3,7 +3,7 @@
  */
 package com.mmarket.dao;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import com.mmarket.model.MMarketAttendedTable;
@@ -16,6 +16,6 @@ public interface MMarketAttendedTableDAO {
 
 	public List<MMarketAttendedTable> getAllAttendees();
 	public List<MMarketAttendedTable> getAttendeesEventById(long eventId);
-	public List<MMarketAttendedTable> getAttendeesByViewDate(Timestamp viewDate);
+	public List<MMarketAttendedTable> getAttendeesByViewDate(Date viewDate);
 	public MMarketAttendedTable getAttendedByPatronId(long patronId);
 }

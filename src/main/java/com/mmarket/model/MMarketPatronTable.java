@@ -6,7 +6,7 @@ package com.mmarket.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,8 @@ public class MMarketPatronTable implements Serializable {
 	private String password;
 	private String gender;
 	private String birthYear;
-	private Timestamp createDate;
-	private Timestamp lastLogin;
+	private Date createDate;
+	private Date lastLogin;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -93,19 +93,19 @@ public class MMarketPatronTable implements Serializable {
 	}
 	
 	@Column(name = "CREATE_DATE", unique = true, nullable = false)
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 	
 	@Column(name = "LAST_LOGIN", unique = true, nullable = false)
-	public Timestamp getLastLogin() {
+	public Date getLastLogin() {
 		return lastLogin;
 	}
-	public void setLastLogin(Timestamp lastLogin) {
+	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 	
