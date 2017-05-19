@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mmarket.dao.MMarketEventTableDAO;
 import com.mmarket.dao.MMarketManViewTableDAO;
+import com.mmarket.model.MMarketEventTable;
 import com.mmarket.model.MMarketManViewTable;
 
 /**
@@ -32,6 +34,8 @@ public class MMarketManViewTableTest {
     @Autowired
 	private MMarketManViewTableDAO mmDao;
 
+    @Autowired
+    private MMarketEventTableDAO eventDAO;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -74,5 +78,12 @@ public class MMarketManViewTableTest {
 		 List<MMarketManViewTable> getManViewedByEventId = mmDao.getManViewedByEventId(eventId);
 		 Assert.assertNotNull(getManViewedByEventId);
 		 Assert.assertEquals(2, getManViewedByEventId.size());
+	}
+	
+	@Test
+	public void getAllEvents() {
+		List<MMarketEventTable> events = eventDAO.getAllEvents();
+		Assert.assertNotNull(events);
+		
 	}
 }

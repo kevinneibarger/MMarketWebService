@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.mmarket.dao.MMarketEventTableDAO;
@@ -27,8 +28,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getAllEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.loadAll(MMarketEventTable.class);
 	}
 
 	/* (non-Javadoc)
@@ -36,8 +37,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getAllEventsByName(String eventName) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where eventName = ?", eventName);
 	}
 
 	/* (non-Javadoc)
@@ -45,8 +46,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getAllEventsByVenue(String venueName) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where venueName = ?", venueName);
 	}
 
 	/* (non-Javadoc)
@@ -54,8 +55,15 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public MMarketEventTable getEventById(long eventId) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List l = template.find("from MMarketEventTable where eventId = ?", eventId);
+		MMarketEventTable event = new MMarketEventTable();
+		
+		if (l != null && l.size() > 0) {
+			event = (MMarketEventTable)l.get(0);
+		}
+		
+		return event;
 	}
 
 	/* (non-Javadoc)
@@ -63,8 +71,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getEventsByEventCity(String eventCity) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where eventCity = ?", eventCity);
 	}
 
 	/* (non-Javadoc)
@@ -72,8 +80,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getEventsByVenueCity(String venueCity) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where venueCity = ?", venueCity);
 	}
 
 	/* (non-Javadoc)
@@ -81,8 +89,8 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 	 */
 	@Override
 	public List<MMarketEventTable> getEventsByEventStatus(String eventStatus) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where eventStatus = ?", eventStatus);
 	}
 
 }

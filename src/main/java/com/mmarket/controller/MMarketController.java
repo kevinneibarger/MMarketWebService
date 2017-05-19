@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mmarket.model.MMarketAttendedTable;
+import com.mmarket.model.MMarketEventTable;
 import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
 import com.mmarket.service.MMarketService;
@@ -138,4 +139,38 @@ public class MMarketController {
 		return mmarketService.getAttendedByPatronId(patronId);
 	}
 
+	/**
+	 * Web Services for the Event Table
+	 */
+	
+	@RequestMapping(value = "/getAllEvents", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getAllEvents() {
+		return mmarketService.getAllEvents();
+	}
+	
+	@RequestMapping(value = "/getEventById", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketEventTable getEventById(@PathVariable long eventId) {
+		return mmarketService.getEventById(eventId);
+	}
+	
+	@RequestMapping(value = "/getAllEventsByName", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getAllEventsByName(@PathVariable String eventName) {
+		return mmarketService.getAllEventsByName(eventName);
+	}
+	
+	@RequestMapping(value = "/getAllEventsByVenue/{venueName}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getAllEventsByVenue(@PathVariable String venueName) {
+		return mmarketService.getAllEventsByVenue(venueName);
+	}
+	
+	@RequestMapping(value = "/getEventsByVenueCity/{venueCityName}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getEventsByVenueCity(@PathVariable String venueCityName) {
+		return mmarketService.getEventsByVenueCity(venueCityName);
+	}
+	
+	@RequestMapping(value = "/getEventsByEventCity/{eventCityName}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getEventsByEventCity(@PathVariable String eventCityName) {
+		return mmarketService.getEventsByEventCity(eventCityName);
+	}
+	
 }
