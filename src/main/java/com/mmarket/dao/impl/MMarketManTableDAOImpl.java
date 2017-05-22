@@ -6,11 +6,16 @@ package com.mmarket.dao.impl;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.mmarket.dao.MMarketManTableDAO;
+import com.mmarket.model.MMarketEventTable;
 import com.mmarket.model.MMarketManTable;
+import com.mmarket.model.MMarketPatronLoginHistTable;
 
 /**
  * @author kevin
@@ -27,8 +32,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getAllData() {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.loadAll(MMarketManTable.class);
 	}
 
 	/* (non-Javadoc)
@@ -36,8 +41,15 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public MMarketManTable getManById(long manId) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List l = template.find("from MMarketManTable where manId = ?", manId);
+		MMarketManTable man = new MMarketManTable();
+		
+		if (l != null && l.size() > 0) {
+			man = (MMarketManTable)l.get(0);
+		}
+		
+		return man;
 	}
 
 	/* (non-Javadoc)
@@ -45,8 +57,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByEventId(long eventId) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where eventId = ?", eventId);
 	}
 
 	/* (non-Javadoc)
@@ -54,8 +66,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByOccupation(String occupation) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where occupation = ?", occupation);
 	}
 
 	/* (non-Javadoc)
@@ -63,8 +75,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByAge(String age) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where age = ?", age);
 	}
 
 	/* (non-Javadoc)
@@ -72,8 +84,12 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByAgeRange(String startAge, String endAge) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketManTable.class);
+		criteria.add(Restrictions.between("age", startAge, endAge));
+		
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketManTable> men = (List<MMarketManTable>)template.findByCriteria(criteria);
+		return men;
 	}
 
 	/* (non-Javadoc)
@@ -81,8 +97,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByEthnicity(String ethnicity) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where ethnicity = ?", ethnicity);
 	}
 
 	/* (non-Javadoc)
@@ -90,8 +106,12 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByEthnicityRange(List<String> ethnicities) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketManTable.class);
+		criteria.add(Restrictions.in("ethnicity", ethnicities));
+		
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketManTable> men = (List<MMarketManTable>)template.findByCriteria(criteria);
+		return men;
 	}
 
 	/* (non-Javadoc)
@@ -99,8 +119,12 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByHeightRange(String shortest, String tallest) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketManTable.class);
+		criteria.add(Restrictions.between("height", shortest, tallest));
+		
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketManTable> men = (List<MMarketManTable>)template.findByCriteria(criteria);
+		return men;
 	}
 
 	/* (non-Javadoc)
@@ -108,8 +132,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByEventNum(long eventNum) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where eventNum = ?", eventNum);
 	}
 
 	/* (non-Javadoc)
@@ -117,8 +141,8 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	 */
 	@Override
 	public List<MMarketManTable> getMenByFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketManTable>) template.find("from MMarketManTable where firstName = ?", firstName);
 	}
 
 }

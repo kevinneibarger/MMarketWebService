@@ -4,6 +4,7 @@
 package com.mmarket.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mmarket.model.MMarketAttendedTable;
 import com.mmarket.model.MMarketEventTable;
+import com.mmarket.model.MMarketManTable;
 import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
 import com.mmarket.service.MMarketService;
@@ -171,6 +173,71 @@ public class MMarketController {
 	@RequestMapping(value = "/getEventsByEventCity/{eventCityName}", method=RequestMethod.GET, headers="Accept=application/json")
 	public List<MMarketEventTable> getEventsByEventCity(@PathVariable String eventCityName) {
 		return mmarketService.getEventsByEventCity(eventCityName);
+	}
+	
+	/**
+	 * Web Services for the Man Table
+	 */
+	
+	@RequestMapping(value = "/getAllData", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getAllData() {
+		return mmarketService.getAllData();
+	}
+	
+	@RequestMapping(value = "/getManById/{manId}", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketManTable getManById(@PathVariable long manId) {
+		return mmarketService.getManById(manId);
+	}
+	
+	@RequestMapping(value = "/getMenByEventId/{eventId}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByEventId(@PathVariable long eventId) {
+		return getMenByEventId(eventId);
+	}
+	
+	@RequestMapping(value = "/getMenByOccupation/{occupation}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByOccupation(@PathVariable String occupation) {
+		return mmarketService.getMenByOccupation(occupation);
+	}
+	
+	@RequestMapping(value = "/getMenByAge/{age}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByAge(@PathVariable String age) {
+		return mmarketService.getMenByAge(age);
+	}
+	
+	@RequestMapping(value = "/getMenByAgeRange/{startAge}/{endAge}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByAgeRange(@PathVariable String startAge, @PathVariable String endAge) {
+		return mmarketService.getMenByAgeRange(startAge, endAge);
+	}
+	
+	@RequestMapping(value = "/getMenByEthnicity/{ethnicity}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByEthnicity(@PathVariable String ethnicity) {
+		return mmarketService.getMenByEthnicity(ethnicity);
+	}
+	
+	@RequestMapping(value = "/getMenByEthnicityRange/{ethnicities}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByEthnicityRange(@PathVariable String ethnicities) {
+		List<String> ethnicityList = new ArrayList<String>();
+		String[] eList = ethnicities.split(",");
+		
+		for (int i = 0; i < eList.length; i++) {
+			ethnicityList.add(eList[i]);
+		}
+		return mmarketService.getMenByEthnicityRange(ethnicityList);
+	}
+	
+	@RequestMapping(value = "/getMenByHeightRange/{shortest}/{tallest}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByHeightRange(@PathVariable String shortest, @PathVariable String tallest) {
+		return mmarketService.getMenByHeightRange(shortest, tallest);
+	}
+	
+	@RequestMapping(value = "/getMenByEventNum/{eventNum}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByEventNum(@PathVariable long eventNum) {
+		return mmarketService.getMenByEventNum(eventNum);
+	}
+	
+	@RequestMapping(value = "/getMenByFirstName/{firstName}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketManTable> getMenByFirstName(@PathVariable String firstName) {
+		return mmarketService.getMenByFirstName(firstName);
 	}
 	
 }
