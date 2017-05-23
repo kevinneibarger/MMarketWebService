@@ -246,7 +246,7 @@ public class MMarketService {
 		return patronDAO.getPatronByName(firstName, lastName);
 	}
 
-	public MMarketPatronTable getPatronByBirthYear(String birthYear) {
+	public List<MMarketPatronTable> getPatronByBirthYear(String birthYear) {
 		return patronDAO.getPatronByBirthYear(birthYear);
 	}
 

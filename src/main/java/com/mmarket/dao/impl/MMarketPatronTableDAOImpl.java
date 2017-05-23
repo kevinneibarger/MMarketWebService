@@ -4,13 +4,18 @@
 package com.mmarket.dao.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.mmarket.dao.MMarketPatronTableDAO;
+import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronTable;
 
 /**
@@ -20,6 +25,8 @@ import com.mmarket.model.MMarketPatronTable;
 @Repository
 public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	public SessionFactory sessionFactory;
 	
@@ -28,8 +35,9 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	 */
 	@Override
 	public List<MMarketPatronTable> getAllPatrons() {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketPatronTable> allPatrons = template.loadAll(MMarketPatronTable.class);
+		return allPatrons;
 	}
 
 	/* (non-Javadoc)
@@ -37,8 +45,15 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	 */
 	@Override
 	public MMarketPatronTable getPatronById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		MMarketPatronTable patron = new MMarketPatronTable();
+		
+		List l = template.find("from MMarketPatronTable where patronId = ?", id);
+		if (l != null && l.size() > 0) {
+			patron = (MMarketPatronTable)l.get(0);
+		}
+		
+		return patron;
 	}
 
 	/* (non-Javadoc)
@@ -46,17 +61,32 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	 */
 	@Override
 	public MMarketPatronTable getPatronByName(String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketPatronTable.class);
+		criteria.add(Restrictions.and(
+				Restrictions.eq("firstName", firstName), Restrictions.eq("lastName", lastName)));
+		
+		List l = template.findByCriteria(criteria);
+		MMarketPatronTable patron = new MMarketPatronTable();
+		
+		if (l != null && l.size() > 0) {
+			patron = (MMarketPatronTable) l.get(0);
+		}
+		
+		return patron;
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see com.mmarket.dao.MMarketPatronTableDAO#getPatronByBirthYear(java.lang.String)
 	 */
 	@Override
-	public MMarketPatronTable getPatronByBirthYear(String birthYear) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MMarketPatronTable> getPatronByBirthYear(String birthYear) {
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketPatronTable> getPatronByBY = 
+				(List<MMarketPatronTable>)template.find("from MMarketPatronTable where birthYear=?", birthYear);
+		
+		return getPatronByBY;
 	}
 
 	/* (non-Javadoc)
@@ -64,8 +94,11 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	 */
 	@Override
 	public List<MMarketPatronTable> getPatronsByCreateDate(Date createDate) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketPatronTable> patronsByCreateDate =
+				(List<MMarketPatronTable>)template.find("from MMarketPatronTable where createDate=?", createDate);
+		
+		return patronsByCreateDate;
 	}
 
 	/* (non-Javadoc)
@@ -73,8 +106,11 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 	 */
 	@Override
 	public List<MMarketPatronTable> getPatronsByGender(String gender) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketPatronTable> patronsByGender =
+				(List<MMarketPatronTable>)template.find("from MMarketPatronTable where gender=?", gender);
+		
+		return patronsByGender;
 	}
 
 }

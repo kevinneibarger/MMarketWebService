@@ -67,14 +67,21 @@ public class MMarketManViewTableDAOImpl implements MMarketManViewTableDAO {
 
 	@Override
 	public List<MMarketManViewTable> getManViewedByViewDate(Date viewDate) {
-		// TODO Auto-generated method stub
-		return null;
+
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketManViewTable> menViewedByDate =
+				(List<MMarketManViewTable>)template.find("from MMarketManViewTable where viewDate=?", viewDate);
+		
+		return menViewedByDate;
 	}
 
 	@Override
 	public List<MMarketManViewTable> getManViewedByPatronId(long patronId) {
-		// TODO Auto-generated method stub
-		return null;
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		List<MMarketManViewTable> menViewedByDate =
+				(List<MMarketManViewTable>)template.find("from MMarketManViewTable where patronId=?", patronId);
+		
+		return menViewedByDate;
 	}
 
 }

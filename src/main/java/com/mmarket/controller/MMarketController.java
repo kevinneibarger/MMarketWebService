@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.mmarket.model.MMarketEventTable;
 import com.mmarket.model.MMarketManTable;
 import com.mmarket.model.MMarketManViewTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
+import com.mmarket.model.MMarketPatronTable;
 import com.mmarket.service.MMarketService;
 
 /**
@@ -240,4 +242,38 @@ public class MMarketController {
 		return mmarketService.getMenByFirstName(firstName);
 	}
 	
+	/**
+	 * Web Services for Man Market Patron
+	 *
+	 */
+	
+	@RequestMapping(value = "/getAllPatrons", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketPatronTable> getAllPatrons() {
+		return mmarketService.getAllPatrons();
+	}
+
+	@RequestMapping(value = "/getPatronById/{id}", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketPatronTable getPatronById(@PathVariable long id) {
+		return mmarketService.getPatronById(id);
+	}
+
+	@RequestMapping(value = "/getPatronByName/{firstName}/{lastName}", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketPatronTable getPatronByName(@PathVariable String firstName, @PathVariable String lastName) {
+		return mmarketService.getPatronByName(firstName, lastName);
+	}
+
+	@RequestMapping(value = "/getPatronByBirthYear/{birthYear}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketPatronTable> getPatronByBirthYear(@PathVariable String birthYear) {
+		return mmarketService.getPatronByBirthYear(birthYear);
+	}
+
+	@RequestMapping(value = "/getPatronsByCreateDate/{createDate}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketPatronTable> getPatronsByCreateDate(@PathVariable Date createDate) {
+		return mmarketService.getPatronsByCreateDate(createDate);
+	}
+
+	@RequestMapping(value = "/getPatronsByGender/{gender}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketPatronTable> getPatronsByGender(@PathVariable String gender) {
+		return mmarketService.getPatronsByGender(gender);
+	}
 }
