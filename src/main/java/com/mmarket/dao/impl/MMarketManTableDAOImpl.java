@@ -5,6 +5,7 @@ package com.mmarket.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.FlushMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +17,7 @@ import com.mmarket.dao.MMarketManTableDAO;
 import com.mmarket.model.MMarketEventTable;
 import com.mmarket.model.MMarketManTable;
 import com.mmarket.model.MMarketPatronLoginHistTable;
+import com.mmarket.model.MMarketPatronTable;
 
 /**
  * @author kevin
@@ -143,6 +145,40 @@ public class MMarketManTableDAOImpl implements MMarketManTableDAO {
 	public List<MMarketManTable> getMenByFirstName(String firstName) {
 		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
 		return (List<MMarketManTable>) template.find("from MMarketManTable where firstName = ?", firstName);
+	}
+
+	@Override
+	public MMarketManTable loginMan(String email, String password) {
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketManTable.class);
+		criteria.add(Restrictions.and(
+				Restrictions.eq("emailAddr", email), Restrictions.eq("password", password)));
+		
+		List l = template.findByCriteria(criteria);
+		MMarketManTable man = new MMarketManTable();
+		
+		if (l != null && l.size() > 0) {
+			man = (MMarketManTable) l.get(0);
+		}
+		
+		return man;
+	}
+
+	@Override
+	public int addMan(MMarketManTable man) {
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		template.getSessionFactory().getCurrentSession().setFlushMode(FlushMode.AUTO);
+		template.saveOrUpdate(man);
+		
+		// Check and make sure it was added!
+		MMarketManTable newMan =  getManById(man.getManId());
+		
+		if (newMan != null) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }

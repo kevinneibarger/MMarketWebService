@@ -242,6 +242,41 @@ public class MMarketController {
 		return mmarketService.getMenByFirstName(firstName);
 	}
 	
+//	@RequestMapping(value = "/loginMan/{email}/{password}", method=RequestMethod.GET, headers="Accept=application/json")
+//	public MMarketManTable loginMan(@PathVariable String email, @PathVariable String password) {
+//		return mmarketService.loginMan(email, password);
+//	}
+	
+	@RequestMapping(value = "/registerMan/{eventId}/{eventNum}/{firstName}/{lastName}/{emailAddr}/{occupation}/{age}/{ethnicity}/{height}/{photoURL}/{regStatus}/{answer1}/{answer2}/{answer3}", method = RequestMethod.PUT, headers = "Accept=html/text") 
+	public String addMan(@PathVariable int eventId, @PathVariable long eventNum, @PathVariable String firstName, @PathVariable String lastName, @PathVariable String emailAddr, @PathVariable String occupation, @PathVariable String age, 
+			@PathVariable String ethnicity, @PathVariable String height, @PathVariable String photoURL, @PathVariable String regStatus, @PathVariable String answer1, 
+			@PathVariable String answer2, @PathVariable String answer3) {
+		
+		MMarketManTable man = new MMarketManTable();
+		man.setAge(new Integer(age).intValue());
+		man.setFirstName(firstName);
+		man.setLastName(lastName);
+		man.setEmailAddr(emailAddr);
+		man.setOccupation(occupation);
+		man.setEthnicity(ethnicity);
+		man.setHeight(height);
+		man.setPhotoUrl(photoURL);
+		man.setRegStatus(regStatus);
+		man.setAnswer1(answer1);
+		man.setAnswer2(answer2);
+		man.setAnswer3(answer3);
+		man.setEventId(eventId);
+		man.setEventNum(eventNum);
+		
+		int success = mmarketService.addMan(man);
+
+		if (success == 1) {
+			return "Man with ID: "+man.getManId()+" Was Successfully ADDED!";
+		} else {
+			return "Man with ID: "+man.getManId()+" Was NOT ADDED, an error hath occurreth!";
+		}
+	}
+	
 	/**
 	 * Web Services for Man Market Patron
 	 *
@@ -275,5 +310,43 @@ public class MMarketController {
 	@RequestMapping(value = "/getPatronsByGender/{gender}", method=RequestMethod.GET, headers="Accept=application/json")
 	public List<MMarketPatronTable> getPatronsByGender(@PathVariable String gender) {
 		return mmarketService.getPatronsByGender(gender);
+	}
+	
+	@RequestMapping(value = "/doesPatronExist/{email}/{password}/{birthYear}", method=RequestMethod.GET, headers="Accept=application/json")
+	public String doesPatronExist(@PathVariable String email, @PathVariable String password, @PathVariable String birthYear) {
+		boolean doesExist = mmarketService.doesPatronExist(email, password, birthYear);
+		
+		if (doesExist) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
+
+	@RequestMapping(value = "/loginPatron/{email}/{password}", method=RequestMethod.GET, headers="Accept=application/json")
+	public MMarketPatronTable loginPatron(@PathVariable String email, @PathVariable String password) {
+		return mmarketService.loginPatron(email, password);
+	}
+	
+	@RequestMapping(value = "/addPatron/{firstName}/{lastName}/{emailAddr}/{password}/{gender}/{birthYear}", method = RequestMethod.PUT, headers = "Accept=html/text") 
+	public String addPatron(@PathVariable String firstName, @PathVariable String lastName, @PathVariable String emailAddr, @PathVariable String password, @PathVariable String gender, 
+			@PathVariable String birthYear) {
+		
+		MMarketPatronTable patron = new MMarketPatronTable();
+		patron.setBirthYear(birthYear);
+		patron.setEmailAddr(emailAddr);
+		patron.setFirstName(firstName);
+		patron.setLastName(lastName);
+		patron.setGender(gender);
+		patron.setPassword(password);
+		patron.setCreateDate(new Date(System.currentTimeMillis()));
+		
+		int success = mmarketService.addPatron(patron);
+
+		if (success == 1) {
+			return "Patron with ID: "+patron.getPatronId()+" Was Successfully ADDED!";
+		} else {
+			return "Patron with ID: "+patron.getPatronId()+" Was NOT ADDED, an error hath occurreth!";
+		}
 	}
 }

@@ -21,4 +21,7 @@ public interface MMarketPatronTableDAO extends Serializable {
 	public List<MMarketPatronTable> getPatronByBirthYear(String birthYear);
 	public List<MMarketPatronTable> getPatronsByCreateDate(Date createDate);
 	public List<MMarketPatronTable> getPatronsByGender(String gender);
+	public boolean checkPatronExistence(String email, String password, String birthYear);
+	public MMarketPatronTable loginPatron(String email, String password);
+	public int addPatron(MMarketPatronTable patron);
 }

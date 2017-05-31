@@ -24,4 +24,6 @@ public interface MMarketManTableDAO {
 	public List<MMarketManTable> getMenByHeightRange(String shortest, String tallest);
 	public List<MMarketManTable> getMenByEventNum(long eventNum);
 	public List<MMarketManTable> getMenByFirstName(String firstName);
+	public MMarketManTable loginMan(String email, String password);
+	public int addMan(MMarketManTable man);
 }

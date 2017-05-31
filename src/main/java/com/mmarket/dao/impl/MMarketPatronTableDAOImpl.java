@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mmarket.dao.MMarketPatronTableDAO;
 import com.mmarket.model.MMarketManViewTable;
+import com.mmarket.model.MMarketPatronLoginHistTable;
 import com.mmarket.model.MMarketPatronTable;
 
 /**
@@ -111,6 +112,58 @@ public class MMarketPatronTableDAOImpl implements MMarketPatronTableDAO {
 				(List<MMarketPatronTable>)template.find("from MMarketPatronTable where gender=?", gender);
 		
 		return patronsByGender;
+	}
+
+	@Override
+	public boolean checkPatronExistence(String email, String password, String birthYear) {
+
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketPatronTable.class);
+		criteria.add(Restrictions.and(
+				Restrictions.eq("emailAddr", email), Restrictions.eq("password", password), Restrictions.eq("birthYear", birthYear)));
+		
+		List l = template.findByCriteria(criteria);
+
+		if (l != null && l.size() > 0) {
+			return true;
+		}
+		
+		
+		return false;
+	}
+
+	@Override
+	public MMarketPatronTable loginPatron(String email, String password) {
+
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		DetachedCriteria criteria = DetachedCriteria.forClass(MMarketPatronTable.class);
+		criteria.add(Restrictions.and(
+				Restrictions.eq("emailAddr", email), Restrictions.eq("password", password)));
+		
+		List l = template.findByCriteria(criteria);
+		MMarketPatronTable patron = new MMarketPatronTable();
+		
+		if (l != null && l.size() > 0) {
+			patron = (MMarketPatronTable) l.get(0);
+		}
+		
+		return patron;
+	}
+
+	@Override
+	public int addPatron(MMarketPatronTable patron) {
+		
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		template.saveOrUpdate(patron);
+		
+		// Check and make sure it was added!
+		MMarketPatronTable newPatron =  getPatronById(patron.getPatronId());
+		
+		if (newPatron != null) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }

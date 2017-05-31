@@ -229,6 +229,15 @@ public class MMarketService {
 		return manDAO.getMenByFirstName(firstName);
 	}
 	
+	public MMarketManTable loginMan(String email, String password) {
+		return manDAO.loginMan(email, password);
+	}
+	
+	@Transactional
+	public int addMan(MMarketManTable man) {
+		return manDAO.addMan(man);
+	}
+	
 	/**
 	 * Services for Man Market Patron
 	 *
@@ -256,6 +265,18 @@ public class MMarketService {
 
 	public List<MMarketPatronTable> getPatronsByGender(String gender) {
 		return patronDAO.getPatronsByGender(gender);
+	}
+	
+	public boolean doesPatronExist(String email, String password, String birthYear) {
+		return patronDAO.checkPatronExistence(email, password, birthYear);
+	}
+	
+	public MMarketPatronTable loginPatron(String email, String password) {
+		return patronDAO.loginPatron(email, password);
+	}
+	
+	public int addPatron(MMarketPatronTable patron) {
+		return patronDAO.addPatron(patron);
 	}
 	
 	/**
