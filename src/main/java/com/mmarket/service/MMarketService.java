@@ -180,6 +180,14 @@ public class MMarketService {
 		return eventDAO.getEventsByEventStatus(eventStatus);
 	}
 	
+	public List<MMarketEventTable> getEventsByZipCode(String zipCode) {
+		return eventDAO.getEventsByZipCode(zipCode);
+	}
+	
+	public List<MMarketEventTable> getEventsByCity(String city) {
+		return eventDAO.getEventsByCity(city);
+	}
+	
 	/**
 	 * Services for Man Market Man Table
 	 *
@@ -233,7 +241,6 @@ public class MMarketService {
 		return manDAO.loginMan(email, password);
 	}
 	
-	@Transactional
 	public int addMan(MMarketManTable man) {
 		return manDAO.addMan(man);
 	}

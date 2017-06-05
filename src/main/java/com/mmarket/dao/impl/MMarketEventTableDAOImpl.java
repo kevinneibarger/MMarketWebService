@@ -93,4 +93,16 @@ public class MMarketEventTableDAOImpl implements MMarketEventTableDAO {
 		return (List<MMarketEventTable>) template.find("from MMarketEventTable where eventStatus = ?", eventStatus);
 	}
 
+	@Override
+	public List<MMarketEventTable> getEventsByZipCode(String zipCode) {
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where venueZipCode = ?", zipCode);
+	}
+
+	@Override
+	public List<MMarketEventTable> getEventsByCity(String city) {
+		HibernateTemplate template = new HibernateTemplate(this.sessionFactory);
+		return (List<MMarketEventTable>) template.find("from MMarketEventTable where eventCity = ?", city);
+	}
+
 }

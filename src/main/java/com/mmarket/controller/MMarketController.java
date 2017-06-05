@@ -177,6 +177,16 @@ public class MMarketController {
 		return mmarketService.getEventsByEventCity(eventCityName);
 	}
 	
+	@RequestMapping(value = "/getEventsByZipCode/{zipCode}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getEventsByZipCode(@PathVariable String zipCode) {
+		return mmarketService.getEventsByZipCode(zipCode);
+	}
+	
+	@RequestMapping(value = "/getEventsByCity/{city}", method=RequestMethod.GET, headers="Accept=application/json")
+	public List<MMarketEventTable> getEventsByCity(@PathVariable String city) {
+		return mmarketService.getEventsByCity(city);
+	}
+	
 	/**
 	 * Web Services for the Man Table
 	 */

@@ -21,4 +21,7 @@ public interface MMarketEventTableDAO {
 	public List<MMarketEventTable> getEventsByVenueCity(String venueCity);
 	public List<MMarketEventTable> getEventsByEventStatus(String eventStatus);
 	
+	public List<MMarketEventTable> getEventsByZipCode(String zipCode);
+	public List<MMarketEventTable> getEventsByCity(String city);
+	
 }
